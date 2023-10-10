@@ -9,3 +9,8 @@ is the same as that in the unit tests in the xml-security project. The
 keystore is a dummy keystore only used locally for testing. (You likely
 have you own for similar purposes or you will have to use the one
 included here and update the configuration to point to it.)
+
+## Getting started
+
+* `./gradlew clean build`
+* `(cd ./build/distribution && java -jar lib/interlok-boot.jar)`
