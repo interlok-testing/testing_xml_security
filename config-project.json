@@ -10,6 +10,6 @@
     "bootstrap.properties" : "bootstrap.properties",
     "log4j2.xml" : "log4j2.xml"
   },
-  "optionalComponentsInUse" : [ "com.adaptris:interlok-xml-security:4.0.0B1-RELEASE" ],
+  "optionalComponentsInUse" : [ "com.adaptris:interlok-xml-security:5.0-SNAPSHOT" ],
   "structured" : true
 }
