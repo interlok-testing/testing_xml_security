@@ -1,6 +1,14 @@
 <service-test>
   <unique-id>lonely-shirley</unique-id>
-  <test-client class="local-jmx-test-client"/>
+  <test-client class="embedded-jmx-test-client">
+    <shared-components>
+      <connections/>
+      <services/>
+    </shared-components>
+    <shared-components-provider>
+      <services/>
+    </shared-components-provider>
+  </test-client>
   <helpers/>
   <test-list>
     <unique-id>xml-security-channel</unique-id>
