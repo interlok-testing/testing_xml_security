@@ -1,0 +1,101 @@
+<service-test>
+  <unique-id>lonely-shirley</unique-id>
+  <test-client class="local-jmx-test-client"/>
+  <helpers/>
+  <test-list>
+    <unique-id>xml-security-channel</unique-id>
+    <test>
+      <unique-id>encrypt-service@xml-security-workflow</unique-id>
+      <test-case>
+        <unique-id>encrypt-test</unique-id>
+        <input-message-provider>
+          <metadata-provider class="empty-metadata-provider"/>
+          <payload-provider class="inline-payload-provider">
+            <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<root>
+  <child>Some Data</child>
+  <child1>Some Data</child1>
+  <unencrypted>Unencrypted xpath</unencrypted>
+</root>]]></payload>
+          </payload-provider>
+        </input-message-provider>
+        <assertions/>
+      </test-case>
+      <service-to-test>
+        <source class="file-source">
+          <file>file:///${service.tester.working.directory}/src/main/interlok/config/adapter.xml</file>
+        </source>
+        <preprocessors>
+          <service-unique-id-preprocessor>
+            <channel>xml-security-channel</channel>
+            <workflow>xml-security-workflow</workflow>
+            <service>encrypt-service</service>
+          </service-unique-id-preprocessor>
+        </preprocessors>
+      </service-to-test>
+    </test>
+    <test>
+      <unique-id>decrypt service@xml-security-workflow</unique-id>
+      <test-case>
+        <unique-id>decrypt test</unique-id>
+        <input-message-provider>
+          <metadata-provider class="empty-metadata-provider"/>
+          <payload-provider class="inline-payload-provider">
+            <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<root>
+   <EncryptedData xmlns="http://www.w3.org/2001/04/xmlenc#"
+                  Id="insomniac.74570153.1617786775279"
+                  Type="http://www.w3.org/2001/04/xmlenc#Element">
+      <EncryptionMethod Algorithm="http://www.w3.org/2001/04/xmlenc#aes128-cbc"/>
+      <KeyInfo xmlns="http://www.w3.org/2000/09/xmldsig#"
+               Id="insomniac.4cd58cc8.1617786775279">
+         <EncryptedKey xmlns="http://www.w3.org/2001/04/xmlenc#"
+                       Id="insomniac.17f6e7f6.1617786775278"
+                       Recipient="interlok">
+            <EncryptionMethod Algorithm="http://www.w3.org/2001/04/xmlenc#rsa-1_5"/>
+            <CipherData>
+               <CipherValue>MfUPrFRSsW3VoPSQmMK+zyz8Itl6c00foULlcZvo1R/yJpSuuSqvaXkz2ek1P7Fy
+t/3swVX3rKS0F28ElBHv1WF7XrhEvhGk6JYWUOyJ8s2nvkABG58nbj72EmaWc/Pu
+b0uZdswdMt5QC7qjLm/CaDa2UgJiLySwiTd3mUb0/Y08wyrGuyrglQVlHbUgkjYz
+y5QxuJI/e1F07yDoIhGuqo+rknf0okIWdJWblIddpF+0fHycfNRx0QfEea8/sI2l
+2UD6+hieL3MXjoj6YZ3NHmSicrfj9mBCqddibL1I0shQPKDUkDrRKIeMvO8oYhYQ
+FnkUVFiN7jEhvXzbshIRGQ==</CipherValue>
+            </CipherData>
+         </EncryptedKey>
+      </KeyInfo>
+      <CipherData>
+         <CipherValue>HUuWjEVwEDy4ZlVBamXb+pm6wupekCD1BzYqIraHrHp5A0BQFE8bFijv+nkg6G4p</CipherValue>
+      </CipherData>
+   </EncryptedData>
+   <child1>Some Data</child1>
+   <unencrypted>Unencrypted xpath</unencrypted>
+</root>]]></payload>
+          </payload-provider>
+        </input-message-provider>
+        <assertions>
+          <assert-payload-equals>
+            <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<root>
+   <child>Some Data</child>
+   <child1>Some Data</child1>
+   <unencrypted>Unencrypted xpath</unencrypted>
+</root>
+]]></payload>
+          </assert-payload-equals>
+        </assertions>
+      </test-case>
+      <service-to-test>
+        <source class="file-source">
+          <file>file:///${service.tester.working.directory}/src/main/interlok/config/adapter.xml</file>
+        </source>
+        <preprocessors>
+          <service-unique-id-preprocessor>
+            <channel>xml-security-channel</channel>
+            <workflow>xml-security-workflow</workflow>
+            <service>decrypt service</service>
+          </service-unique-id-preprocessor>
+        </preprocessors>
+      </service-to-test>
+    </test>
+  </test-list>
+</service-test>
